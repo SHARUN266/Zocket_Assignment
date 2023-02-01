@@ -1,15 +1,13 @@
-import { Box, Heading } from '@chakra-ui/react'
-import { useState } from 'react'
-
+import { Box, Heading } from "@chakra-ui/react";
+import AllRoutes from "./components/AllRoutes";
+import Sidebar from "./components/Sidebar";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <Box>
-      <Heading>Hello World!</Heading>
-    </Box>
-  )
+    <Sidebar>
+      <AllRoutes />
+    </Sidebar>
+  );
 }
 
-export default App
+export default App;
