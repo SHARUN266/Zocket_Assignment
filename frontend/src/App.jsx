@@ -4,9 +4,7 @@ import Sidebar from "./components/Sidebar";
 
 function App() {
   return (
-    <Sidebar>
-      <AllRoutes />
-    </Sidebar>
+   <AllRoutes/>
   );
 }
 
