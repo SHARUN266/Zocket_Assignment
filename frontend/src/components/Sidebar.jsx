@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React from "react";
 import {
   IconButton,
   Avatar,
@@ -19,52 +19,51 @@ import {
   MenuDivider,
   MenuItem,
   MenuList,
+  Stack,
+  Image,
+  Tabs,
 } from "@chakra-ui/react";
-import {
-  FiHome,
-  FiTrendingUp,
-  FiCompass,
-  FiStar,
-  FiSettings,
-  FiMenu,
-  FiBell,
-  FiChevronDown,
-} from "react-icons/fi";
-
+import { FiMenu, FiBell } from "react-icons/fi";
+import lang from "../assets/lang.svg";
+import { AiFillCaretDown } from "react-icons/ai";
+import avatar from "../assets/avatar.svg";
+import champaign from "../assets/Champaign.svg";
+import Product from "../assets/Product.svg";
+import Customer from "../assets/Customers.svg";
+import logo from "../assets/logo.svg";
+import home from "../assets/house.svg";
+import buy from "../assets/buy.svg"
 const LinkItems = [
-  { name: "Home", icon: FiHome },
-  { name: "Trending", icon: FiTrendingUp },
-  { name: "Explore", icon: FiCompass },
-  { name: "Favourites", icon: FiStar },
-  { name: "Settings", icon: FiSettings },
+  { name: "Home", icon: home },
+  { name: "", icon: champaign },
+  { name: "", icon: Product },
+  { name: "", icon: Customer },
 ];
 
 export default function Sidebar({ children }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
-    <Box border={"1px solid"} bg={useColorModeValue("gray.100", "gray.900")}>
+    <Box w={"100%"}>
       <SidebarContent
         onClose={() => onClose}
         display={{ base: "none", md: "block" }}
       />
-      {/* <Drawer
+
+      <Drawer
         autoFocus={false}
         isOpen={isOpen}
         placement="left"
         onClose={onClose}
         returnFocusOnClose={false}
         onOverlayClick={onClose}
-        size="md"
+        size="full"
       >
         <DrawerContent>
           <SidebarContent onClose={onClose} />
         </DrawerContent>
-      </Drawer> */}
+      </Drawer>
       {/* mobilenav */}
       <MobileNav onOpen={onOpen} />
-      <Box ml={{ base: 0, md: 60 }} p="4">
-        {children}
-      </Box>
     </Box>
   );
 }
@@ -73,25 +72,33 @@ const SidebarContent = ({ onClose, ...rest }) => {
   return (
     <Box
       transition="3s ease"
-      bg={useColorModeValue("white", "gray.900")}
+      bg=" #001738"
+      color={"white"}
       borderRight="1px"
       borderRightColor={useColorModeValue("gray.200", "gray.700")}
-      w={{ base: "full", md: 40 }}
+      w={{ base: "30%", md: 100 }}
       pos="fixed"
+      left={0}
       h="full"
       {...rest}
     >
-      <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
-        <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
-          Logo
-        </Text>
+      <Flex
+        w={"100%"}
+        h={"5vh"}
+        mt={"50%"}
+        alignItems="center"
+        justifyContent="center"
+      >
+        <Image h={"100%"} display={{ sm: "none", md: "block" }} src={logo} />
         <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
       </Flex>
-      {LinkItems.map((link) => (
-        <NavItem key={link.name} icon={link.icon}>
-          {link.name}
-        </NavItem>
-      ))}
+      <Box mt={"90%"}>
+        {LinkItems.map((link) => (
+          <NavItem key={link.name} icon={link.icon}>
+            {link.name}
+          </NavItem>
+        ))}
+      </Box>
     </Box>
   );
 };
@@ -99,36 +106,30 @@ const SidebarContent = ({ onClose, ...rest }) => {
 const NavItem = ({ icon, children, ...rest }) => {
   return (
     <Link
-   
       href="#"
       style={{ textDecoration: "none" }}
       _focus={{ boxShadow: "none" }}
     >
-      <Flex
+      <Stack
         align="center"
         p="4"
-        mx="4"
-        borderRadius="lg"
+        alignItems={"center"}
+        justifyContent={"center"}
         role="group"
         cursor="pointer"
         _hover={{
-          bg: "cyan.400",
+          bg: "#1977f340",
+
+          borderLeft: "10px solid #1977F3",
           color: "white",
         }}
         {...rest}
       >
-        {icon && (
-          <Icon
-            mr="4"
-            fontSize="16"
-            _groupHover={{
-              color: "white",
-            }}
-            as={icon}
-          />
-        )}
-        {children}
-      </Flex>
+        {icon && <Image objectFit={"contain"} src={icon} />}
+        <Text fontFamily={"Eudoxus Sans"} fontSize={"10px"} fontWeight={400}>
+          {children}
+        </Text>
+      </Stack>
     </Link>
   );
 };
@@ -160,10 +161,13 @@ const MobileNav = ({ onOpen, ...rest }) => {
         fontFamily="monospace"
         fontWeight="bold"
       >
-        Logo
+        <Image src={logo} />
       </Text>
 
       <HStack spacing={{ base: "0", md: "6" }}>
+        <Box display={{ base: "none", md: "flex" }}>
+          <Image src={buy} />
+        </Box>
         <IconButton
           size="lg"
           variant="ghost"
@@ -177,26 +181,21 @@ const MobileNav = ({ onOpen, ...rest }) => {
               transition="all 0.3s"
               _focus={{ boxShadow: "none" }}
             >
-              <HStack>
-                <Avatar
-                  size={"sm"}
-                  src={
-                    "https://images.unsplash.com/photo-1619946794135-5bc917a27793?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=b616b2c5b373a80ffc9636ba24f7a4a9"
-                  }
-                />
+              <HStack color={"#1B3F67"}>
+                <Avatar size={"md"} src={avatar} />
                 <VStack
                   display={{ base: "none", md: "flex" }}
                   alignItems="flex-start"
                   spacing="1px"
                   ml="2"
                 >
-                  <Text fontSize="sm">Justina Clark</Text>
-                  <Text fontSize="xs" color="gray.600">
-                    Admin
-                  </Text>
+                  <Text fontSize="sm">Mukund cake shop</Text>
                 </VStack>
                 <Box display={{ base: "none", md: "flex" }}>
-                  <FiChevronDown />
+                  <AiFillCaretDown />
+                </Box>
+                <Box display={{ base: "none", md: "flex" }}>
+                  <Image src={lang} />
                 </Box>
               </HStack>
             </MenuButton>

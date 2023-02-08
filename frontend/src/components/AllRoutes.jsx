@@ -4,8 +4,9 @@ import Sidebar from './Sidebar'
 
 export default function AllRoutes() {
   return (
-    <Box w={"100%"}>
+    <Box  >
       <Sidebar/>
+      
     </Box>
   )
 }
